@@ -1,0 +1,216 @@
+<div class="container my-8 cairo " id="print-section" *ngIf="info">
+    <h5 class="bg-light border px-2 py-2 radius-top-15"> معلومات ألاستماره: {{info.Name}}</h5>
+    <table class="table table-responsive  table-sm table-bordered  table-striped row-border table-sm w-100 p-0 m-0">
+        <tbody>
+            <tr>
+                <td>الوظيفة ألمتقدم عليها</td>
+                <td>{{info.job.title}}</td>
+            </tr>
+            <tr>
+                <td>الاسم ألرباعي</td>
+                <td>{{info.Name}}</td>
+            </tr>
+            <tr>
+                <td>تاريخ ألولاده</td>
+                <td>{{info.BirthDate}}</td>
+            </tr>
+            <tr >
+                <td>الجنس</td>
+                <td>{{info.Gender}}</td>
+            </tr>
+            <tr>
+                <td>البريد ألاكتروني</td>
+                <td>{{info.email}}</td>
+            </tr>
+            <tr>
+                <td>رقم ألموبايل</td>
+                <td>{{info.mobile}}</td>
+            </tr>
+            <tr>
+                <td>عنوان ألسكن</td>
+                <td>{{info.address}}</td>
+            </tr>
+            <tr>
+                <td>رقم هوية الاحوال ألمدنية او ألبطاقة الموحده</td>
+                <td>{{info.idNumber}}</td>
+            </tr>
+            <tr>
+                <td>ألحالة ألزوجية</td>
+                <td>{{info.MaritialStatus}}</td>
+            </tr>
+            <tr *ngIf="info.MaritialStatus!=MaritialStatuses[0]">
+                <td>عدد ألاطفال</td>
+                <td>{{info.NumberOfChilderen }}</td>
+            </tr>
+            <tr *ngIf="info.MaritialStatus!=MaritialStatuses[0]">
+                <td>تاريخ ألزواج</td>
+                <td>{{info.DateOfMarriage }}</td>
+            </tr>
+            <tr *ngIf="info.MaritialStatus==MaritialStatuses[1]">
+                <td>هل ألزوج/ة موظف؟</td>
+                <td>{{info.IsPartenerEmployeed }}</td>
+            </tr>
+            <tr>
+                <td>ألشهادة</td>
+                <td>{{info.degree }}</td>
+            </tr>
+            <tr>
+                <td> تاريخ ألحصول على ألشهادة</td>
+                <td>{{info.degreeDate }}</td>
+            </tr>
+            <tr>
+                <td>معدل ألتخرج</td>
+                <td>{{info.degreeGPA }}</td>
+            </tr>
+            <tr>
+                <td>ألتسلسل</td>
+                <td>{{info.degreeRank }}</td>
+            </tr>
+            <tr>
+                <td>هل أنت من ألثلاثة ألاوائل على ألكلية؟</td>
+                <td>{{info.isOfThreeCollegeRanks}}</td>
+            </tr>
+            <tr>
+                <td>ألبلد المانح للشهادة</td>
+                <td>{{info.degreeCountry }}</td>
+            </tr>
+            <tr>
+                <td>ألجامعة المانحة لألشهادة</td>
+                <td>{{info.degreeUnivercity }}</td>
+            </tr>
+            <tr>
+                <td>ألكلية</td>
+                <td>{{info.degreeCollege }}</td>
+            </tr>
+            <tr>
+                <td>القسم </td>
+                <td>{{info.degreeDepartment }}</td>
+            </tr>
+            <tr>
+                <td>ألفرع</td>
+                <td>{{info.degreeBranch }}</td>
+            </tr>
+            <tr>
+                <td>ألتخصص</td>
+                <td>{{info.degreeProfession }}</td>
+            </tr>
+
+            <tr>
+                <td>هل انت متعين بصفة أجور يومية؟</td>
+                <td>{{info.dailyContract.isAvailable}}</td>
+            </tr>
+            <tr *ngIf="info.dailyContract.isAvailable==yes">
+                <td>ألدائرة</td>
+                <td>{{info.dailyContract.office}}</td>
+            </tr>
+            <tr *ngIf="info.dailyContract.isAvailable==yes">
+                <td>تااريخ ألمباشرة</td>
+                <td>{{info.dailyContract.startDate}}</td>
+            </tr>
+            <tr *ngIf="info.dailyContract.isAvailable==yes">
+                <td>تاريخ ألانفكاك</td>
+                <td>{{info.dailyContract.endDate}}</td>
+            </tr>
+            <tr>
+                <td>هل انت متعين بصفة عقد وزاري؟</td>
+                <td>{{info.permanentContract.isAvailable}}</td>
+            </tr>
+            <tr *ngIf="info.permanentContract.isAvailable==yes">
+                <td>ألدائرة</td>
+                <td>{{info.permanentContract.office}}</td>
+            </tr>
+            <tr *ngIf="info.permanentContract.isAvailable==yes">
+                <td>تااريخ ألمباشرة</td>
+                <td>{{info.permanentContract.startDate}}</td>
+            </tr>
+            <tr *ngIf="info.permanentContract.isAvailable==yes">
+                <td>تاريخ ألانفكاك</td>
+                <td>{{info.permanentContract.endDate}}</td>
+            </tr>
+            <tr>
+                <td>هل انت من ألسجناء السياسين او ذويهم؟</td>
+                <td>{{info.isPpoliticalPrisonerssRelatives}}</td>
+            </tr>
+            <tr>
+                <td>هل أنت من ذوي ألشهداء؟</td>
+                <td>{{info.isMartyrRelatives}}</td>
+            </tr>
+            <tr>
+                <td>هل أنت من ذوي الاحتياجات ألخاصة؟</td>
+                <td>{{info.isOfSpecialCareNeeds}}</td>
+            </tr>
+            <tr>
+                <td>هل أنت من الاقليات؟</td>
+                <td>
+                    <span>{{info.isMinority.isFromMinority}} </span>
+                    
+                    <span  *ngIf="info.isMinority.isFromMinority==yes" class=" pr-3"> -  {{info.isMinority.minorityKind}}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class=" mt-3 px-0">
+        <h5 class="bg-light border py-2 px-2 mb-0">درجة ألتقديم :</h5>
+
+        <table class="table table-responsive  table-sm table-bordered row-border table-sm w-100 p-0 m-0">
+            <tbody>
+                <tr>
+                    <td>درجة سنة ألتخرج</td>
+                    <td>{{info.applicationScore.graduationYearScore}}</td>
+                </tr>
+                <tr>
+                    <td>درجة معدل ألتخرج</td>
+                    <td>{{info.applicationScore.graduationGPAScore}}</td>
+                </tr>
+                <tr>
+                    <td>درجة ألحالة ألزوجية</td>
+                    <td>{{info.applicationScore.maritialScore}}</td>
+                </tr>
+                <tr>
+                    <td>درجة ألعقد والاجور أليومية</td>
+                    <td>{{info.applicationScore.contractScore}}</td>
+                </tr>
+                <tr>
+                    <td>درجة ألمقابلة</td>
+                    <td>{{info.interviewScore}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row ">
+            <h5 class="py-1 text-center text-danger"> ألدرجة ألنهائية:  {{info.finalScore}}</h5>
+        </div>
+        
+    </div>
+
+    <div class="row mx-0 border pb-2 radius-15 mt-5" *ngIf=" Files.length" id="documents">
+        <h5 class="bg-light border-bottom py-2 radius-top-15">ألوثائق والمستمسكات :</h5>
+        <div class="col-lg-12 ">
+            <ol class="px-3">
+                <li *ngFor="let file of Files;let i=index;"  class="my-3">
+                    <div class="d-flex d-inline-flex justify-content-between w-100">
+                        <span class="cairo">{{file.filename}}</span>
+                        <button type="button" class="btn btn-sm  pointer btn-success mr-2 w-10" (click)="this.applicationService.DownloadDataFile(file._id,info.Name+'-'+file.filename);">
+                            <i class="fa fa-download fa-lg px-2"></i> تحميل ألملف
+                        </button>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div class="container mb-8 " id="buttons">
+    <div class="row ">
+        <div class="col-lg-3">
+            <button type="button" class="btn btn-success btn-block w-100 mt-5" (click)="router.navigateTo('/EditApplicationForm/'+Form_id);"><i class="fa fa-edit px-3"></i> تعديل ألمعلومات</button>
+        </div>
+        <div class="col-lg-3 offset-lg-6">
+            <button type="button" class="btn btn-success btn-block w-100 mt-5" (click)="print()"><i class="fa fa-print px-3"></i> طباعة ألاستماره</button>
+        </div>
+    </div>
+
+</div>

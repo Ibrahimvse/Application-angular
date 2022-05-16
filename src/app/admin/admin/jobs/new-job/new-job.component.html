@@ -1,0 +1,73 @@
+<div class="container my-8 border">
+    <form #frm="ngForm" class="needs-validation" (ngSubmit)="submit(frm)">
+        <div class="row pb-5">
+            <h5 class="bg-light border-bottom py-3 radius-top-15">معلومات ألوظيفة:</h5>
+            <div class="col-lg-4">
+                    <label for="title" class="form-label">عنوان ألوظيفة :</label>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="" [(ngModel)]="info.title" required 
+                        #titlefield="ngModel"   lang="ar"
+                        [ngClass]="{ 'is-invalid':  titlefield.errors && frm.submitted}" />
+                    <div *ngIf="titlefield.invalid" class="invalid-feedback">
+                        <div *ngIf="titlefield.errors.required!=null">عنوان ألوظيفة مطلوب</div>
+                    </div>
+            </div>
+            <div class="col-lg-4 offset-lg-4">
+
+                <label for="JobsNumber" class="form-label">العدد المطلوب :</label>
+                <input type="number" class="form-control" name="JobsNumber" id="JobsNumber" placeholder="" [(ngModel)]="info.JobsNumber" required 
+                    #JobsNumber="ngModel"   lang="ar"
+                    [ngClass]="{ 'is-invalid':  JobsNumber.errors && frm.submitted}" />
+                <div *ngIf="JobsNumber.invalid" class="invalid-feedback">
+                    <div *ngIf="JobsNumber.errors.required!=null">اسم الوظيفة</div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-lg-4 ">
+                <label for="degree" class="form-label">ألشهادة المطلوبة :</label>
+                <select class="form-select" id="degree" name="degree" [(ngModel)]="info.degree">
+                    <option *ngFor="let item of this.degrees;let i=index;" [value]="item">{{item}}</option>
+                </select>
+            </div>
+
+            <div class="col-lg-4 offset-lg-4">
+                <label for="profession" class="form-label">ألتخصص ألمطلوب :</label>
+                <input type="text" class="form-control" name="profession" id="profession" placeholder="" [(ngModel)]="info.profession" required 
+                    #profession="ngModel"   lang="ar"
+                    [ngClass]="{ 'is-invalid':  profession.errors && frm.submitted}" />
+                <div *ngIf="profession.invalid" class="invalid-feedback">
+                    <div *ngIf="profession.errors.required!=null">التخصص مطلوب</div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-lg-4 ">
+                <label for="notes" class="form-label">الفئه (دراسات عليا,أقليات,...) :</label>
+                <input type="text" class="form-control" name="notes" id="notes" placeholder="" [(ngModel)]="info.notes" required />
+            </div>
+            <div class="col-lg-4 offset-lg-4 pt-5">
+                <label class="py-2 pl-5">الصلاحية : </label>
+
+                <div class="d-flex d-inline-flex justify-content-between">
+                    <div class="icheck-greensea ml-3 my-2 d-inline">
+                        <input class="box" type="radio"  name="availability" [(ngModel)]="info.availability"
+                                value="مفتوح" id="availabilityopen">
+                        <label for="availabilityopen" class="px-5">مفتوح </label>
+                    </div>
+                    <div class="icheck-greensea ml-3 my-2 d-inline">
+                        <input class="box" type="radio"  name="availability" [(ngModel)]="info.availability"
+                                value="مغلق" id="availabilityoclosed">
+                        <label for="availabilityoclosed" class="px-5"> مغلق </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5" id="buttons">
+            <div class="col-lg-4">
+                <button type="submit" class="btn btn-success btn-block w-100 mt-5"><i class="fa fa-upload px-3"></i> أرسال ألمعلومات</button>
+            </div>
+        </div>
+    </form>
+
+
+</div>

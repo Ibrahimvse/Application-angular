@@ -1,0 +1,70 @@
+<div class="container my-12 cairo">
+    <div class="row justify-content-center ">
+        <div class="col-md-6">
+            <article class="card-body p-10" style="text-align: center;" *ngIf="isLoading">
+                <div class="fa-4x">
+                    <i class="fas fa-spinner fa-pulse text-primary"></i>
+                </div>
+            </article>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="error">
+                <p><strong>خطأ !</strong> {{ error }}</p>
+            </div>
+
+            <div *ngIf="!isLoading" class="card mb-8" [ngClass]="{'d-none':success}">
+                <header class="card-header">
+                    <h4 class="card-title mt-2"><span class="glyphicon glypghicon-user"><i class="fa fa-fw fa-user"></i> تسجيل حساب جديد</span></h4>
+                </header>
+                <article class="card-body">
+                    <form  [formGroup]="registerForm" (ngSubmit)="register()">
+                        <div class="row">
+                            <div class="col-lg-6 form-group">
+                                <label class="form-label">ألبريد ألالكتروني<span class="text-danger">*</span></label>
+                                <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                    <div *ngIf="f.email.errors.required">البريد ألالكتروني مطلوب</div>
+                                    <div *ngIf="f.email.errors.email">البريد ألالكتروني غير صالح</div>
+                                </div>
+                            </div> <!-- form-group end.// -->
+
+                            <div class="col-lg-6  form-group">
+                                <label class="form-label">رقم الموبايل<span class="text-danger">*</span></label>
+                                <input type="text" formControlName="mobile" class="form-control" required pattern="^((\\+91-?)|0)?[0-9]{10}$" minlength="10"
+                                    [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }" />
+                                <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                                    <div *ngIf="f.mobile.errors.required">رقم ألموبايل مطلوب</div>
+                                    <div *ngIf="f.mobile.errors.pattern!=null">رقم الهاتف غير صالح</div>
+                                </div>
+                            </div>  
+                        </div>
+
+                    
+                        <div class="row">
+                            <div class="col-lg-6 form-group">
+                                <label class="form-label">كلمة ألمرور<span class="text-danger">*</span></label>
+                                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                    <div *ngIf="f.password.errors.required">كلمة ألمرور مطلوبة</div>
+                                    <div *ngIf="f.password.errors.minlength">كلمة ألمرور يجب ان تكون من ستة حروف على ألاقل</div>
+                                </div>
+                            </div> <!-- form-group end.// -->
+                            <div class="col-lg-6 form-group">
+                                <label class="form-label">تكرار كلمة ألمرور<span class="text-danger">*</span></label>
+                                <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+                                <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                                    <div *ngIf="f.confirmPassword.errors.required">تكرار كلمة ألمرور مطلوبة</div>
+                                    <div *ngIf="f.confirmPassword.errors.mustMatch">كلمة المرور غير متطابقة</div>
+                                </div>
+                            </div> <!-- form-group end.// -->
+                        </div> <!-- form-row end.// -->
+                    
+                        <div class="row mt-5 mb-3">
+                            <div class="col-md-12">                             
+                                <button type="submit" class="btn btn-success w-100"> ألتسجيل </button>
+                            </div>
+                        </div>                                           
+                    </form>
+                </article> <!-- card-body end .// -->
+            </div> <!-- card.// -->
+        </div> <!-- col.//-->
+    </div> <!-- row.//-->   
+</div> 

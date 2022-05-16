@@ -1,0 +1,164 @@
+<div class="row my-8 mx-2">
+    <div class="col-lg-3 border px-0">
+        <h5 class="bg-light py-2 px-2 border-bottom"> <i class="fa fa-filter"></i> الفرز والتصفية</h5>
+
+        <div>
+            <app-categories  [SourceCategories]="this.adminService.SourceCategories"
+                [TargetCategories]="this.adminService.TargetCategories" (contentUpdate)="updateContent($event)">
+            </app-categories>
+        </div>
+
+    </div>
+    <div class="col-lg-9">
+        <div class="row" *ngIf="isLoading==true">
+            <div class="col-md-12 text-center">
+                <div class="fa-4x">
+                    <i class="fa fa-spinner fa-pulse"></i>
+                </div>   
+            </div>
+        </div>
+        <div *ngIf="records.length">
+            <table id="recordstable" datatable  [dtOptions]="this.dtOptions" class="table table-responsive border-dark border-top table-bordered  table-striped row-border table-sm w-100 p-0 m-0">
+                <thead >
+                  <tr>
+                    <th>#</th>
+                    <th>ألاسم الثلاثي</th>
+                    <th>الشهادة</th>
+                    <th>الوظيفة</th>
+                    <th>درجة المقابلة</th>
+                    <th>الدرجة النهائية</th>
+
+                    <th>ألخيارات</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of records;let i=index;">
+                    <td>{{i+1}}</td>
+                    <td>{{item.Name}}</td>
+                    <td>{{item.degree}}</td>
+                    <td>{{item.job.title}}</td>
+                    <td>{{item.interviewScore}}</td>
+                    <td >{{item.finalScore}}</td>
+                    <td class="text-center">
+                      <i class="fas fa-ellipsis-v px-2" [matMenuTriggerFor]="menu"
+                          aria-label="Example icon-button with a menu"></i>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item  (click)="router.navigateTo('/myform/'+item._id);">
+                            <i class="fa fa-list fa-lg text-green"></i>
+                            <span>معلومات ألاستمارة</span>
+                        </button>
+                          <button mat-menu-item  (click)="router.navigateTo('/EditApplicationForm/'+item._id);">
+                              <i class="fa fa-edit fa-lg text-green"></i>
+                              <span>تعديل ألاستمارة</span>
+                          </button>
+                          <button mat-menu-item  (click)="SelectedItem = item; modal.open(template, 'modal-md');">
+                              <i class="fa fa-trash fa-lg text-danger"></i>
+                              <span>حذف ألاستمارة</span>
+                          </button>
+    
+                          <button mat-menu-item (click)="SelectedItem = item; modal.open(updateItem, 'modal-lg');" >
+                              <i class="fa fa-file-excel fa-lg text-green"></i>
+                              <span>درجة ألمقايلة</span>
+                          </button>
+                      </mat-menu>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="isLoading==false && records.length==0" class="row justify-content-center py-5 ">
+            <div class="col-lg-4">
+                <p class="font-size-16">لم يتم العثور على أي نتائج</p>
+            </div>
+            
+        </div>
+
+    </div>
+
+
+</div>
+
+<ng-template #updateItem>
+  <div class="modal-header">
+      <h4 class="modal-title pull-left mt-3"> تعديل بيانات :  {{ SelectedItem.Name }}</h4>
+      <button type="button" class="btn close pull-right font-size-20 " aria-label="Close" (click)="modal.hide()">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div class="modal-body text-center just">
+    <form #frm="ngForm" class="needs-validation" (ngSubmit)="update(frm)">
+
+        <div class="row mt-4">
+            <div class="col lg-4 ">
+                <label class="pt-2 float-start h6"> درجة المقابلة او ألاختبار :</label>
+            </div>
+           
+            <div class="col-lg-5 offset-lg-3">
+            <input dir="rtl" type="number" class="form-control" name="name" id="name" placeholder="" [(ngModel)]="SelectedItem.interviewScore" required 
+                #interviewScore="ngModel" min="1" max="15" 
+                [ngClass]="{ 'is-invalid':  interviewScore.errors && frm.submitted}" />
+                <div *ngIf="interviewScore.invalid" class="invalid-feedback">
+                    <div *ngIf="interviewScore.errors.required!=null">درجة المقايلة مطلوبة</div>
+                    <div *ngIf="interviewScore.errors.min!=null">الحد الادنى هو صفر</div>
+                    <div *ngIf="interviewScore.errors.max!=null">الجد الاعلى هو 15</div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col lg-4 ">
+                <label class="pt-2 float-start h6"> نتيجة التقديم :</label>
+            </div>
+            <div class="col-lg-5 ">
+                <div class="d-flex d-inline-flex justify-content-between w-100">
+                    <div class="icheck-greensea ml-3 my-2 d-inline">
+                        <input class="box" type="radio"  name="acceptance" [(ngModel)]="SelectedItem.acceptance"
+                             value="مقبول" id="accpeptanceYes">
+                        <label for="accpeptanceYes" class="px-5"> مقبول</label>
+                    </div>
+                    <div class="icheck-greensea ml-3 my-2 d-inline">
+                        <input class="box" type="radio"  name="acceptance" [(ngModel)]="SelectedItem.acceptance"
+                             value="مرفوض" id="accpeptanceNo">
+                        <label for="accpeptanceNo" class="px-5"> مرفوض </label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+          
+        <div class="row mt-5">
+            <div class="col-lg-4 "> 
+                <button type="submit" class="btn btn-success w-100" (click)="update(SelectedItem._id)">
+                   <i class="fa fa-save  px-3"></i> حفظ
+                </button>
+            </div>
+            <div class="col-lg-4 offset-lg-4">
+                <button type="button" class="btn btn-secondary w-100" (click)="modal.hide()">
+                    الغاء
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+  </div>
+</ng-template>
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left mt-3"> حذف  {{ SelectedItem.Name }}</h4>
+        <button type="button" class="btn close pull-right font-size-20 " aria-label="Close" (click)="modal.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center just">
+        <p>هل انت متاكد من حذف هذا ألمتقدم؟</p>
+        <div class="d-flex d-inline-flex justify-content-between w-100">
+            <button type="button" class="btn btn-secondary float-left w-40" (click)="modal.hide()">
+                الغاء
+            </button>
+            <button type="button" class="btn btn-danger float-right w-40" (click)="delete(SelectedItem.id)">
+                حذف
+            </button>
+        </div>
+    </div>
+</ng-template>
+  

@@ -1,0 +1,78 @@
+<div class="container my-8">
+    <div class="row  py-2">
+        <div class="col-lg-6">
+            <h5 class="py-1"> الوظائف ألمفتوحه:</h5>
+        </div>
+        <div class="col-lg-3 offset-3">
+            <button type="button" class="btn btn-success btn-block w-100 " (click)="router.navigateTo('/admin//jobs/newjob/')"> وظيفة جديده</button>
+        </div>
+    </div>
+    <hr>
+    <div class="row" *ngIf="isLoading==true">
+        <div class="col-md-12 text-center">
+            <div class="fa-4x">
+                <i class="fa fa-spinner fa-pulse"></i>
+            </div>   
+        </div>
+    </div>
+    <div *ngIf="records.length">
+        <table id="recordstable" datatable  [dtOptions]="this.dtOptions" class="table table-responsive border-dark border-top table-bordered  table-striped row-border table-sm w-100 p-0 m-0">
+            <thead >
+              <tr>
+                <th>#</th>
+                <th>عنوان الوظيفة</th>
+                <th>الشهادة</th>
+                <th>الفئة</th>
+                <th>العدد المطلوب</th>
+                <th>الخيارات</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of records;let i=index;">
+                <td>{{i+1}}</td>
+                <td>{{item.title}}</td>
+                <td>{{item.degree}}</td>
+                <td>{{item.notes}}</td>
+                <td >{{item.JobsNumber}}</td>
+                <td class="text-center">
+                  <i class="fas fa-ellipsis-v px-2" [matMenuTriggerFor]="menu"
+                      aria-label="Example icon-button with a menu"></i>
+                  <mat-menu #menu="matMenu">
+                      <button mat-menu-item  (click)="router.navigateTo('/admin/jobs/editjob/'+item._id);">
+                          <i class="fa fa-edit fa-lg text-green"></i>
+                          <span>تعديل</span>
+                      </button>
+                      <button mat-menu-item  (click)="SelectedItem = item; modal.open(template, 'modal-md');">
+                          <i class="fa fa-trash fa-lg text-danger"></i>
+                          <span>حذف</span>
+                      </button>
+                  </mat-menu>
+              </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+
+</div>
+
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left mt-3"> حذف  {{ SelectedItem.title }}</h4>
+        <button type="button" class="btn close pull-right font-size-20 " aria-label="Close" (click)="modal.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body text-center just">
+        <p>هل انت متاكد من حذف هذه ألوظيفه؟</p>
+        <div class="d-flex d-inline-flex justify-content-between w-100">
+            <button type="button" class="btn btn-secondary float-left w-40" (click)="modal.hide()">
+                الغاء
+            </button>
+            <button type="button" class="btn btn-danger float-right w-40" (click)="delete(SelectedItem._id)">
+                حذف
+            </button>
+        </div>
+    </div>
+  </ng-template>

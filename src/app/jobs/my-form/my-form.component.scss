@@ -1,0 +1,21 @@
+.cairo{
+    font-family: cairo;
+    font-size:15px;
+}
+table{
+    border-radius: 15px !important;
+    tbody{
+        tr{
+            padding: 0px !important;
+            
+            td{
+                padding-right: 10px !important;
+                padding-top: 0px !important;
+                padding-bottom: 0px !important;
+                height: 30px !important;
+                margin: 0px!important;
+                width:50% !important;
+            }
+        }
+    }
+}
